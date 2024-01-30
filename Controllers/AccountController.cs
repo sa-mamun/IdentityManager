@@ -48,6 +48,12 @@ namespace IdentityManager.Controllers
             return View(model);
         }
 
+        public IActionResult Login()
+        {
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
