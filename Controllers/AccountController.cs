@@ -65,10 +65,14 @@ namespace IdentityManager.Controllers
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     return LocalRedirect(returnUrl);
+                }
+                else if (result.IsLockedOut)
+                {
+                    return View("Lockout");
                 }
                 else
                 {
@@ -77,6 +81,12 @@ namespace IdentityManager.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Lockout()
+        {
+            return View();
         }
 
         [HttpPost]

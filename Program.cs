@@ -20,6 +20,9 @@ builder.Services.Configure<IdentityOptions>(option =>
     option.Password.RequireLowercase = false;
     option.Password.RequireDigit = false;
     option.Password.RequireNonAlphanumeric = false;
+    option.Lockout.MaxFailedAccessAttempts = 3;
+    option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+    option.SignIn.RequireConfirmedEmail = false;
 });
 
 var app = builder.Build();
