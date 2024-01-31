@@ -14,6 +14,14 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.Configure<IdentityOptions>(option =>
+{
+    option.Password.RequireUppercase = false;
+    option.Password.RequireLowercase = false;
+    option.Password.RequireDigit = false;
+    option.Password.RequireNonAlphanumeric = false;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
